@@ -27,10 +27,10 @@ namespace RestaurantWebApplication.EntityFramework
                                         Initial Catalog=RestaurantBD;Integrated Security=True;
                                         Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;
                                         Application Intent=ReadWrite;Multi Subnet Failover=False");
-            //optionsBuilder.UseSqlServer(@"Data Source=LAPTOP-FPR118VN\SQLEXPRESS;
-            //                            Initial Catalog=RestaurantBD;Integrated Security=True;
-            //                            Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;
-            //                            Application Intent=ReadWrite;Multi Subnet Failover=False");
+            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-0USVL0V\SQLEXPRESS;
+            //                          Initial Catalog=RestaurantBD;Integrated Security=True;
+            //                          Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;
+            //                          ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
     }
 }
