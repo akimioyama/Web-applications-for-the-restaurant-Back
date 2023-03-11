@@ -21,7 +21,7 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         {
             return bookingSelects.GetActualByTableId(id).Select(b=>new BookingDTO() {Id = b.Id, TableId = b.TableId, DateTime = b.DateTime, FIO = b.FIO, Phone = b.Phone });
         }
-        public bool AddBooking(BookingDTO booking)
+        public int AddBooking(BookingDTO booking)
         {
             return bookingSelects.AddBooking(new Booking() { Id = 0, TableId = booking.TableId, DateTime = booking.DateTime, FIO = booking.FIO, Phone = booking.Phone });
         }

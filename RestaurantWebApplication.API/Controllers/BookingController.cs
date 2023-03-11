@@ -26,8 +26,9 @@ namespace RestaurantWebApplication.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBooking(BookingDTO bookingDTO)
         {
-            if(_bookingService.AddBooking(bookingDTO)) return Ok();
-            else return NotFound();
+            int result = _bookingService.AddBooking(bookingDTO);
+            if (result != 0) return Ok(result);
+            else return BadRequest();
         }
         [HttpPut]
         public async Task<IActionResult> ChangeBooking(BookingDTO bookingDTO)
