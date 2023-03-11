@@ -7,12 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RestaurantWebApplication.Application.Serviñes.Implementation;
+using RestaurantWebApplication.Application.Serviñes.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web_applications_for_the_restaurant_Back
+namespace RestaurantWebApplication.API
 {
     public class Startup
     {
@@ -30,8 +32,19 @@ namespace Web_applications_for_the_restaurant_Back
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web_applications_for_the_restaurant_Back", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestaurantWebApplication.API", Version = "v1" });
             });
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader().WithExposedHeaders("*");
+                builder.AllowAnyMethod();
+                builder.AllowCredentials().WithExposedHeaders("Location");
+            }));
+
+            services.AddTransient<ITablesService, TablesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +54,7 @@ namespace Web_applications_for_the_restaurant_Back
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web_applications_for_the_restaurant_Back v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestaurantWebApplication.API v1"));
             }
 
             app.UseHttpsRedirection();

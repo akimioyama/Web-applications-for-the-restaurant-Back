@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantWebApplication.Common\RestaurantWebApplication.Common.csproj" />
+    <ProjectReference Include="..\RestaurantWebApplication.Domain\RestaurantWebApplication.Domain.csproj" />
+    <ProjectReference Include="..\RestaurantWebApplication.EntityFramework\RestaurantWebApplication.EntityFramework.csproj" />
+  </ItemGroup>
+
+</Project>

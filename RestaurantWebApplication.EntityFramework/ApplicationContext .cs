@@ -1,0 +1,29 @@
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantWebApplication.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestaurantWebApplication.EntityFramework
+{
+    public class ApplicationContext : DbContext
+    {
+        public DbSet<User> Users { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<Menu> Menu { get; set; }
+        public DbSet<Booking> Booking { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<Order> Orders { get; set; }
+
+        public ApplicationContext()
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-0USVL0V\SQLEXPRESS;Initial Catalog=RestaurantBD;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
+    }
+}

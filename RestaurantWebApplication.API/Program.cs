@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web_applications_for_the_restaurant_Back
+namespace RestaurantWebApplication.API
 {
     public class Program
     {

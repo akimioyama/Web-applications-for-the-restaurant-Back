@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:43058",
-      "sslPort": 44364
+      "applicationUrl": "http://localhost:29107",
+      "sslPort": 44343
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Web_applications_for_the_restaurant_Back": {
+    "RestaurantWebApplication.API": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
