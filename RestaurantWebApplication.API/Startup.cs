@@ -36,13 +36,16 @@ namespace RestaurantWebApplication.API
             });
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyOrigin();
-                builder.AllowAnyHeader().WithExposedHeaders("*");
-                builder.AllowAnyMethod();
-                builder.AllowCredentials().WithExposedHeaders("Location");
-            }));
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000");
+                    builder.WithOrigins("http://192.168.0.82:3000");
+                    builder.WithOrigins("http://192.168.0.82");
+                    builder.WithOrigins("http://172.20.10.2:3000");
+                    builder.AllowAnyHeader().WithExposedHeaders("*");
+                    builder.AllowAnyMethod();
+                    builder.AllowCredentials().WithExposedHeaders("Location");
+                }));
 
             services.AddTransient<ITablesService, TablesService>();
         }
@@ -60,6 +63,10 @@ namespace RestaurantWebApplication.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+
+            app.UseCors("CorsPolicy");
+
 
             app.UseAuthorization();
 
