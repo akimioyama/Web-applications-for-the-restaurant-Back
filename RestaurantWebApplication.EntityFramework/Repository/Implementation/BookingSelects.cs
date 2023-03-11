@@ -38,20 +38,21 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Implementation
                 return null;
             }
         }
-        public bool AddBooking(Booking booking)
+        public int AddBooking(Booking booking)
         {
             try
             {
                 using (ApplicationContext db = new ApplicationContext())
                 {
+                    booking.Id = 0;
                     db.Booking.Add(booking);
                     db.SaveChanges();
-                    return true;
+                    return booking.Id;
                 }
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
         public bool ChangeBooking(Booking booking)

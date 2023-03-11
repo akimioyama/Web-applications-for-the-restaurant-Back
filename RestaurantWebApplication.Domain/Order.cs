@@ -12,7 +12,7 @@ namespace RestaurantWebApplication.Domain
         public int SessionId { get; set; }
         public Session Session { get; set; }
         public int MenuId { get; set; }
-        public Menu Menu { get; set; }
+        public MenuItem MenuItem { get; set; }
         public decimal ActualPrice { get; set; }
     }
 }

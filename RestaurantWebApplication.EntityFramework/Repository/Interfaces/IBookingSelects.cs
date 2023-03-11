@@ -11,7 +11,7 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Interfaces
     {
         public Booking GetFirstActualDateTimeByTableId(int id);
         public List<Booking> GetActualByTableId(int id);
-        public bool AddBooking(Booking booking);
+        public int AddBooking(Booking booking);
         public bool ChangeBooking(Booking booking);
         public bool DeleteBookingById(int id);
     }
