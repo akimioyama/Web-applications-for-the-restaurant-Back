@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
+using RestaurantWebApplication.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,12 @@ namespace RestaurantWebApplication.API.Controllers
         public async Task<IActionResult> GetAllTable()
         {
             return Ok(_tablesService.GetAllTables());
+        }
+        [HttpPut]
+        public async Task<IActionResult> ChangeTable(TableChangeDTO table)
+        {
+            if (_tablesService.ChangeTable(table)) return Ok();
+            else return NotFound();
         }
     }
 }

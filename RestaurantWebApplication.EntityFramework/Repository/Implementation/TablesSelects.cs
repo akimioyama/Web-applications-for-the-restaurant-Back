@@ -24,5 +24,26 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Implementation
                 return null;
             }
         }
+        public bool ChangeTable(Table table)
+        {
+            try
+            {
+                using (ApplicationContext db = new ApplicationContext())
+                {
+                    Table tableMain = db.Tables.FirstOrDefault(t => t.Id == table.Id);
+                    if (tableMain != null)
+                    {
+                        tableMain.IsFree = table.IsFree;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

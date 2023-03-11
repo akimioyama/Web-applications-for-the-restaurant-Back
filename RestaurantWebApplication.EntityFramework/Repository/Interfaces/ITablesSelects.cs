@@ -10,5 +10,6 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Interfaces
     public interface ITablesSelects
     {
         public List<Table> GetAll();
+        public bool ChangeTable(Table table);
     }
 }

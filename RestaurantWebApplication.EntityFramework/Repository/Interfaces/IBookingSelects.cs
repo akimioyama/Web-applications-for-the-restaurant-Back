@@ -9,6 +9,10 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Interfaces
 {
     public interface IBookingSelects
     {
-        public DateTime? GetFirstActualDateTimeByTableId(int id);
+        public Booking GetFirstActualDateTimeByTableId(int id);
+        public List<Booking> GetActualByTableId(int id);
+        public bool AddBooking(Booking booking);
+        public bool ChangeBooking(Booking booking);
+        public bool DeleteBookingById(int id);
     }
 }

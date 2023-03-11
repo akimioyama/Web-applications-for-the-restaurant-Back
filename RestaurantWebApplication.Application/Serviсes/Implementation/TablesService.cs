@@ -1,5 +1,6 @@
 ﻿using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
+using RestaurantWebApplication.Domain;
 using RestaurantWebApplication.EntityFramework.Repository.Implementation;
 using RestaurantWebApplication.EntityFramework.Repository.Interfaces;
 using System;
@@ -23,13 +24,17 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         {
             try
             {
-                IEnumerable<TableDTO> AllTables = tablesSelects.GetAll().Select(p => new TableDTO() { Id = p.Id, IsFree = p.IsFree, DateTime = bookingSelects.GetFirstActualDateTimeByTableId(p.Id) });
+                IEnumerable<TableDTO> AllTables = tablesSelects.GetAll().Select(p => new TableDTO(p.Id, p.IsFree, bookingSelects.GetFirstActualDateTimeByTableId(p.Id)));
                 return AllTables;
             }
             catch
             {
                 return null;
             }
+        }
+        public bool ChangeTable(TableChangeDTO table)
+        {
+            return tablesSelects.ChangeTable(new Table() { Id = table.Id, IsFree = table.IsFree});
         }
     }
 }
