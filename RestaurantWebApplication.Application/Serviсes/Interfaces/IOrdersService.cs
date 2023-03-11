@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace RestaurantWebApplication.Application.Serviсes.Interfaces
 {
-    public interface IMenuService
+    public interface IOrdersService
     {
-        public List<MenuItemDTO> GetMenu();
-        public int AddMenuItem(MenuItemDTO menuItemsDTO);
-        public bool ChangeMenuItem(MenuItemDTO menuItemsDTO);
-        public bool DeleteMenuItem(int id);
+        public int AddOrder(int sessionId, int menuItemId);
+        public bool DeleteOrder(int orderId);
+        public List<OrderDTO> GetOrderBySessionId(int sessionId);
     }
 }

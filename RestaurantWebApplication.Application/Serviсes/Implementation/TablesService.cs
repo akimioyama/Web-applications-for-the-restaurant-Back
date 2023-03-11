@@ -15,16 +15,18 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
     {
         ITablesSelects tablesSelects;
         IBookingSelects bookingSelects;
+        ISessionsSelects sessinsSelects;
         public TablesService()
         {
             tablesSelects = new TablesSelects();
             bookingSelects = new BookingSelects();
+            sessinsSelects = new SessionsSelects();
         }
-        public IEnumerable<TableDTO> GetAllTables()
+        public List<TableDTO> GetAllTables()
         {
             try
             {
-                IEnumerable<TableDTO> AllTables = tablesSelects.GetAll().Select(p => new TableDTO(p.Id, p.IsFree, bookingSelects.GetFirstActualDateTimeByTableId(p.Id)));
+                List<TableDTO> AllTables = tablesSelects.GetAll().Select(p => new TableDTO(p.Id, p.IsFree, bookingSelects.GetFirstActualDateTimeByTableId(p.Id), sessinsSelects.GetSessionByTableId(p.Id))).ToList();
                 return AllTables;
             }
             catch

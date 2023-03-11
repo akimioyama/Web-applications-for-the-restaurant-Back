@@ -18,9 +18,9 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         {
             menuSelects = new MenuSelects();
         }
-        public IEnumerable<MenuItemDTO> GetMenu()
+        public List<MenuItemDTO> GetMenu()
         {
-            return menuSelects.GetAllMenuItems().Select(m => new MenuItemDTO() { Id = m.Id, Name = m.Name, Composition = m.Composition, PictureName = m.PictureName, Price = m.Price });
+            return menuSelects.GetAllMenuItems().Select(m => new MenuItemDTO() { Id = m.Id, Name = m.Name, Composition = m.Composition, PictureName = m.PictureName, Price = m.Price }).ToList();
         }
         public int AddMenuItem(MenuItemDTO menuItemsDTO)
         {

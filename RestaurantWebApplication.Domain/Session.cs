@@ -14,8 +14,8 @@ namespace RestaurantWebApplication.Domain
         public int UserId { get; set; }
         public User User { get; set; }
         public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-        public decimal PayableCheck { get; set; }
+        public DateTime? EndDateTime { get; set; }
+        public decimal? PayableCheck { get; set; }
         public bool PaymentState { get; set; }
 
         public List<Order> Orders { get; set; }

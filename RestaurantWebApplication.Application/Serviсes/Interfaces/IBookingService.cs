@@ -10,7 +10,7 @@ namespace RestaurantWebApplication.Application.Serviсes.Interfaces
 {
     public interface IBookingService
     {
-        public IEnumerable<BookingDTO> GetActualByTableId(int id);
+        public List<BookingDTO> GetActualByTableId(int id);
         public int AddBooking(BookingDTO booking);
         public bool ChangeBooking(BookingDTO booking);
         public bool DeleteBooking(int id);

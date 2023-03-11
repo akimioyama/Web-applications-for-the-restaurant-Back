@@ -1,0 +1,42 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using RestaurantWebApplication.Application.DTO;
+using RestaurantWebApplication.Application.Serviсes.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RestaurantWebApplication.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OrdersController : ControllerBase
+    {
+        IOrdersService _ordersService;
+        public OrdersController(IOrdersService ordersService)
+        {
+            _ordersService = ordersService;
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddOrder(int sessionId, int menuItemId)
+        {
+            int result = _ordersService.AddOrder(sessionId, menuItemId);
+            if (result != 0) return Ok(result);
+            else return BadRequest();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteOrder(int orderId)
+        {
+            if (_ordersService.DeleteOrder(orderId)) return Ok();
+            else return NotFound();
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetOrderBySessionId(int sessionId)
+        {
+            List<OrderDTO> result = _ordersService.GetOrderBySessionId(sessionId);
+            if (result != null) return Ok(result);
+            else return NotFound();
+        }
+    }
+}

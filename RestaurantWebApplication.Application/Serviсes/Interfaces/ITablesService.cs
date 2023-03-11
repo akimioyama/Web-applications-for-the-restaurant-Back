@@ -10,7 +10,7 @@ namespace RestaurantWebApplication.Application.Serviсes.Interfaces
 {
     public interface ITablesService
     {
-        public IEnumerable<TableDTO> GetAllTables();
+        public List<TableDTO> GetAllTables();
         public bool ChangeTable(TableChangeDTO table);
     }
 }

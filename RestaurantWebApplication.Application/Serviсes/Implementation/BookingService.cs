@@ -17,9 +17,9 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         {
             bookingSelects = new BookingSelects();
         }
-        public IEnumerable<BookingDTO> GetActualByTableId(int id)
+        public List<BookingDTO> GetActualByTableId(int id)
         {
-            return bookingSelects.GetActualByTableId(id).Select(b=>new BookingDTO() {Id = b.Id, TableId = b.TableId, DateTime = b.DateTime, FIO = b.FIO, Phone = b.Phone });
+            return bookingSelects.GetActualByTableId(id).Select(b=>new BookingDTO() {Id = b.Id, TableId = b.TableId, DateTime = b.DateTime, FIO = b.FIO, Phone = b.Phone }).ToList();
         }
         public int AddBooking(BookingDTO booking)
         {
