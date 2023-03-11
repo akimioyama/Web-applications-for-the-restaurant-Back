@@ -44,6 +44,7 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Implementation
             {
                 using (ApplicationContext db = new ApplicationContext())
                 {
+                    booking.Id = 0;
                     db.Booking.Add(booking);
                     db.SaveChanges();
                     return booking.Id;

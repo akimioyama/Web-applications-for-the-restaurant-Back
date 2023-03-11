@@ -12,7 +12,7 @@ namespace RestaurantWebApplication.EntityFramework
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Table> Tables { get; set; }
-        public DbSet<Menu> Menu { get; set; }
+        public DbSet<MenuItem> Menu { get; set; }
         public DbSet<Booking> Booking { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Order> Orders { get; set; }

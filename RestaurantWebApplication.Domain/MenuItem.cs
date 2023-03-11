@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantWebApplication.Domain
 {
-    public class Menu
+    public class MenuItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

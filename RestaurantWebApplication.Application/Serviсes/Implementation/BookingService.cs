@@ -23,7 +23,7 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         }
         public int AddBooking(BookingDTO booking)
         {
-            return bookingSelects.AddBooking(new Booking() { Id = 0, TableId = booking.TableId, DateTime = booking.DateTime, FIO = booking.FIO, Phone = booking.Phone });
+            return bookingSelects.AddBooking(new Booking() { Id = booking.Id, TableId = booking.TableId, DateTime = booking.DateTime, FIO = booking.FIO, Phone = booking.Phone });
         }
         public bool ChangeBooking(BookingDTO booking)
         {
