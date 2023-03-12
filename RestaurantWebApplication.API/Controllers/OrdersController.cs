@@ -19,9 +19,9 @@ namespace RestaurantWebApplication.API.Controllers
             _ordersService = ordersService;
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrder(int sessionId, int menuItemId)
+        public async Task<IActionResult> AddOrder(OrderAddDTO orderAddDTO)
         {
-            int result = _ordersService.AddOrder(sessionId, menuItemId);
+            int result = _ordersService.AddOrder(orderAddDTO);
             if (result != 0) return Ok(result);
             else return BadRequest();
         }

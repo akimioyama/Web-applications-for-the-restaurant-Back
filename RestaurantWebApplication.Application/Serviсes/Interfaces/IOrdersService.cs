@@ -9,7 +9,7 @@ namespace RestaurantWebApplication.Application.Serviсes.Interfaces
 {
     public interface IOrdersService
     {
-        public int AddOrder(int sessionId, int menuItemId);
+        public int AddOrder(OrderAddDTO orderAddDTO);
         public bool DeleteOrder(int orderId);
         public List<OrderDTO> GetOrderBySessionId(int sessionId);
     }

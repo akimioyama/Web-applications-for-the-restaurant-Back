@@ -17,9 +17,9 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         {
             ordersSelects = new OrdersSelects();
         }
-        public int AddOrder(int sessionId, int menuItemId)
+        public int AddOrder(OrderAddDTO orderAddDTO)
         {
-            return ordersSelects.AddOrder(sessionId, menuItemId);
+            return ordersSelects.AddOrder(orderAddDTO.SessionId, orderAddDTO.MenuItemId);
         }
         public bool DeleteOrder(int orderId)
         {
