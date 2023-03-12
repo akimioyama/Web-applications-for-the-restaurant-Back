@@ -9,7 +9,7 @@ namespace RestaurantWebApplication.Application.Serviсes.Interfaces
 {
     public interface ISessionsService
     {
-        public SessionDTO AddSession(int tableId);
+        public SessionDTO AddSession(int tableId, string jwt);
         public SessionDTO GetSessionByTableId(int tableId);
         public decimal FormPayableCheck(int id);
         public bool ChangePaymentState(SessionStateChangeDTO sessionStateChangeDTO);

@@ -23,7 +23,8 @@ namespace RestaurantWebApplication.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSession(int tableId)
         {
-            SessionDTO result = _sessionsService.AddSession(tableId);
+            string jwt = (Request.Headers.ContainsKey("authorization") ? Request.Headers["authorization"] : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+            SessionDTO result = _sessionsService.AddSession(tableId, jwt);
             if (result != null) return Ok(result);
             else return BadRequest();
         }
