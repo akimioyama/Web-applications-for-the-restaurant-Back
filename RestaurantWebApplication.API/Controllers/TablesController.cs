@@ -24,7 +24,9 @@ namespace RestaurantWebApplication.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllTable()
         {
-            return Ok(_tablesService.GetAllTables());
+            List<TableDTO> result = _tablesService.GetAllTables();
+            if (result != null) return Ok(result);
+            else return NotFound();
         }
         [Authorize]
         [HttpPut]

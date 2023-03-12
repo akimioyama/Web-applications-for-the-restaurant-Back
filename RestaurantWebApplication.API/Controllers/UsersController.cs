@@ -12,41 +12,42 @@ namespace RestaurantWebApplication.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        IBookingService _bookingService;
-        public BookingController(IBookingService bookingService)
+        IUsersService _usersService;
+        public UsersController(IUsersService usersService)
         {
-            _bookingService = bookingService;
+            _usersService = usersService;
         }
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<IActionResult> GetActualByTableId(int TableId)
+        public async Task<IActionResult> GetAllUsers()
         {
-            List<BookingDTO> result = _bookingService.GetActualByTableId(TableId);
+            List<UserDTO> result = _usersService.GetAllUsers();
             if (result != null) return Ok(result);
             else return NotFound();
         }
-        [Authorize]
+    
+        [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> AddBooking(BookingDTO bookingDTO)
+        public async Task<IActionResult> AddUser(UserAddDTO userAddDTO)
         {
-            int result = _bookingService.AddBooking(bookingDTO);
+            int result = _usersService.AddUser(userAddDTO);
             if (result != 0) return Ok(result);
             else return BadRequest();
         }
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPut]
-        public async Task<IActionResult> ChangeBooking(BookingDTO bookingDTO)
+        public async Task<IActionResult> ChangeUser(UserDTO userDTO)
         {
-            if (_bookingService.ChangeBooking(bookingDTO)) return Ok();
+            if (_usersService.ChangeUser(userDTO)) return Ok();
             else return NotFound();
         }
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteBooking(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            if (_bookingService.DeleteBooking(id)) return Ok();
+            if (_usersService.DeleteUser(id)) return Ok();
             else return NotFound();
         }
     }
