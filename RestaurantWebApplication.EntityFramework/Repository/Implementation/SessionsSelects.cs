@@ -17,17 +17,23 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Implementation
             {
                 using (ApplicationContext db = new ApplicationContext())
                 {
-                    Session session = new Session()
+                    Table table = db.Tables.FirstOrDefault(t => t.Id == tableId);
+                    if (table != null && table.IsFree)
                     {
-                        TableId = tableId,
-                        UserId = userId,
-                        StartDateTime = DateTime.Now,
-                        PayableCheck = 0,
-                        PaymentState = false
-                    };
-                    db.Sessions.Add(session);
-                    db.SaveChanges();
-                    return session;
+                        table.IsFree = false;
+                        Session session = new Session()
+                        {
+                            TableId = tableId,
+                            UserId = userId,
+                            StartDateTime = DateTime.Now,
+                            PayableCheck = 0,
+                            PaymentState = false
+                        };
+                        db.Sessions.Add(session);
+                        db.SaveChanges();
+                        return session;
+                    }
+                    else return null;
                 }
             }
             catch
@@ -45,7 +51,6 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Implementation
                     {
 
                         Session session = db.Sessions.Where(s => s.TableId == tableId).OrderByDescending(s=>s.StartDateTime).Include(s => s.Orders).ThenInclude(o => o.Menu).FirstOrDefault();
-                        //.Include(s => s.Orders).ThenInclude(o => o.MenuItem)
                         return session;
                     }
                     else return null;

@@ -21,20 +21,24 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         public SessionDTO AddSession(int tableId)
         {
             Session session = sessionsSelects.AddSession(tableId, 1);
-            SessionDTO sessionDTO = new SessionDTO() 
-            { 
-                Id = session.Id, 
-                StartDateTime = session.StartDateTime,
-                PayableCheck = session.PayableCheck, 
-                PaymentState = session.PaymentState,
-                Orders = session.Orders?.Select(o => new OrderDTO()
+            if (session != null)
+            {
+                SessionDTO sessionDTO = new SessionDTO()
                 {
-                    Id = o.Id,
-                    NameMenuItem = o.Menu?.Name,
-                    ActualPrice = o.ActualPrice
-                })?.ToList()
-            };
-            return sessionDTO;
+                    Id = session.Id,
+                    StartDateTime = session.StartDateTime,
+                    PayableCheck = session.PayableCheck,
+                    PaymentState = session.PaymentState,
+                    Orders = session.Orders?.Select(o => new OrderDTO()
+                    {
+                        Id = o.Id,
+                        NameMenuItem = o.Menu?.Name,
+                        ActualPrice = o.ActualPrice
+                    })?.ToList()
+                };
+                return sessionDTO;
+            }
+            else return null;
         }
         public SessionDTO GetSessionByTableId(int tableId)
         {
