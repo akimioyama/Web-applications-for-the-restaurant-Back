@@ -20,7 +20,7 @@ namespace RestaurantWebApplication.API.Controllers
             _sessionsService = sessionsService;
         }
         [Authorize]
-        [HttpPost]
+        [HttpGet("{tableId}")]
         public async Task<IActionResult> AddSession(int tableId)
         {
             string jwt = (Request.Headers.ContainsKey("authorization") ? Request.Headers["authorization"] : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
