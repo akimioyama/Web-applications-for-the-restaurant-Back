@@ -23,7 +23,9 @@ namespace RestaurantWebApplication.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMenu()
         {
-            return Ok(_menuService.GetMenu());
+            List<MenuItemDTO> result = _menuService.GetMenu();
+            if (result != null) return Ok(result);
+            else return NotFound();
         }
         [Authorize(Roles = "admin")]
         [HttpPost]

@@ -116,6 +116,7 @@ namespace RestaurantWebApplication.API
             services.AddTransient<ISessionsService, SessionsService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
