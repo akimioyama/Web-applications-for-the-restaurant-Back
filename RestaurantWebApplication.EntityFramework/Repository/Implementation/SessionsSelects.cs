@@ -50,7 +50,7 @@ namespace RestaurantWebApplication.EntityFramework.Repository.Implementation
                     if (!db.Tables.FirstOrDefault(t => t.Id == tableId).IsFree)
                     {
 
-                        Session session = db.Sessions.Where(s => s.TableId == tableId).OrderByDescending(s=>s.StartDateTime).Include(s => s.Orders).ThenInclude(o => o.Menu).FirstOrDefault();
+                        Session session = db.Sessions.Where(s => s.TableId == tableId && s.EndDateTime == null).OrderByDescending(s=>s.StartDateTime).Include(s => s.Orders).ThenInclude(o => o.Menu).FirstOrDefault();
                         return session;
                     }
                     else return null;
