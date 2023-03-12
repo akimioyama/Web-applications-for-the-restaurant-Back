@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,9 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RestaurantWebApplication.Application.Serviсes.Implementation;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
+using RestaurantWebApplication.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +31,69 @@ namespace RestaurantWebApplication.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // укзывает, будет ли валидироватьс€ издатель при валидации токена
+                            ValidateIssuer = true,
+                            // строка, представл€юща€ издател€
+                            ValidIssuer = AuthOptions.ISSUER,
+
+                            // будет ли валидироватьс€ потребитель токена
+                            ValidateAudience = true,
+                            // установка потребител€ токена
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // будет ли валидироватьс€ врем€ существовани€
+                            ValidateLifetime = true,
+
+                            // установка ключа безопасности
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // валидаци€ ключа безопасности
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
+
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestaurantWebApplication.API", Version = "v1" });
+            });
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                },
+                                Scheme = "oauth2",
+                                Name = "Bearer",
+                                In = ParameterLocation.Header,
+
+                            },
+                            new List<string>()
+                        }
+                    });
             });
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
@@ -47,11 +108,14 @@ namespace RestaurantWebApplication.API
                 builder.AllowCredentials().WithExposedHeaders("Location");
             }));
 
+
+
             services.AddTransient<ITablesService, TablesService>();
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IMenuService, MenuService>();
             services.AddTransient<ISessionsService, SessionsService>();
             services.AddTransient<IOrdersService, OrdersService>();
+            services.AddTransient<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +134,7 @@ namespace RestaurantWebApplication.API
 
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

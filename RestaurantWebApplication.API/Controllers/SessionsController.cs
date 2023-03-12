@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
@@ -18,6 +19,7 @@ namespace RestaurantWebApplication.API.Controllers
         {
             _sessionsService = sessionsService;
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddSession(int tableId)
         {
@@ -25,6 +27,7 @@ namespace RestaurantWebApplication.API.Controllers
             if (result != null) return Ok(result);
             else return BadRequest();
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetSessionByTableId(int tableId)
         {
@@ -32,6 +35,7 @@ namespace RestaurantWebApplication.API.Controllers
             if (result != null) return Ok(result);
             else return NotFound();
         }
+        [Authorize]
         [HttpGet("GetCheck")]
         public async Task<IActionResult> FormPayableCheck(int id)
         {
@@ -39,6 +43,7 @@ namespace RestaurantWebApplication.API.Controllers
             if (result != -1) return Ok(result);
             else return NotFound();
         }
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> ChangePaymentState(SessionStateChangeDTO sessionStateChangeDTO)
         {

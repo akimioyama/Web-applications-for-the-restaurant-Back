@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
@@ -19,11 +20,13 @@ namespace RestaurantWebApplication.API.Controllers
         {
             _tablesService = tablesService;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllTable()
         {
             return Ok(_tablesService.GetAllTables());
         }
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> ChangeTable(TableChangeDTO table)
         {

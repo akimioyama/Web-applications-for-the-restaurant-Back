@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RestaurantWebApplication.Common\RestaurantWebApplication.Common.csproj" />
     <ProjectReference Include="..\RestaurantWebApplication.Domain\RestaurantWebApplication.Domain.csproj" />
     <ProjectReference Include="..\RestaurantWebApplication.EntityFramework\RestaurantWebApplication.EntityFramework.csproj" />

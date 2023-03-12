@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
@@ -18,11 +19,13 @@ namespace RestaurantWebApplication.API.Controllers
         {
             _bookingService = bookingService;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetActualByTableId(int TableId)
         {
             return Ok(_bookingService.GetActualByTableId(TableId));
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddBooking(BookingDTO bookingDTO)
         {
@@ -30,12 +33,14 @@ namespace RestaurantWebApplication.API.Controllers
             if (result != 0) return Ok(result);
             else return BadRequest();
         }
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> ChangeBooking(BookingDTO bookingDTO)
         {
             if (_bookingService.ChangeBooking(bookingDTO)) return Ok();
             else return NotFound();
         }
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteBooking(int id)
         {

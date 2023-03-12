@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
@@ -18,11 +19,13 @@ namespace RestaurantWebApplication.API.Controllers
         {
             _menuService = menuService;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetMenu()
         {
             return Ok(_menuService.GetMenu());
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> AddMenuItem(MenuItemDTO menuItemDTO)
         {
@@ -30,12 +33,14 @@ namespace RestaurantWebApplication.API.Controllers
             if (result != 0) return Ok(result);
             else return BadRequest();
         }
+        [Authorize(Roles = "admin")]
         [HttpPut]
         public async Task<IActionResult> ChangeMenuItem(MenuItemDTO menuItemDTO)
         {
             if(_menuService.ChangeMenuItem(menuItemDTO)) return Ok();
             else return NotFound();
         }
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteMenuItem(int id)
         {

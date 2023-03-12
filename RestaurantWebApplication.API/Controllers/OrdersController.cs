@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantWebApplication.Application.DTO;
 using RestaurantWebApplication.Application.Serviсes.Interfaces;
@@ -18,6 +19,7 @@ namespace RestaurantWebApplication.API.Controllers
         {
             _ordersService = ordersService;
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddOrder(OrderAddDTO orderAddDTO)
         {
@@ -25,12 +27,14 @@ namespace RestaurantWebApplication.API.Controllers
             if (result != 0) return Ok(result);
             else return BadRequest();
         }
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteOrder(int orderId)
         {
             if (_ordersService.DeleteOrder(orderId)) return Ok();
             else return NotFound();
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetOrderBySessionId(int sessionId)
         {
