@@ -5,7 +5,9 @@ using RestaurantWebApplication.EntityFramework.Repository.Implementation;
 using RestaurantWebApplication.EntityFramework.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,9 +20,20 @@ namespace RestaurantWebApplication.Application.Serviсes.Implementation
         {
             sessionsSelects = new SessionsSelects();
         }
-        public SessionDTO AddSession(int tableId)
+        public SessionDTO AddSession(int tableId, string jwt)
         {
-            Session session = sessionsSelects.AddSession(tableId, 1);
+            
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwt);
+            var tokenS = (JwtSecurityToken)jsonToken;
+
+            int userId = Convert.ToInt32(tokenS.Claims.
+                Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                Select(claim => claim.Value).FirstOrDefault());
+            
+            
+
+            Session session = sessionsSelects.AddSession(tableId, userId);
             if (session != null)
             {
                 SessionDTO sessionDTO = new SessionDTO()
